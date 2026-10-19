@@ -1,0 +1,66 @@
+@page "/fetchproducts"
+@using ClientApp.Services
+@using ClientApp.Models
+@inject ProductsApiService ProductsApi
+
+<PageTitle>Product List</PageTitle>
+
+<h3>Product List</h3>
+
+@if (isLoading)
+{
+    <p role="status">Loading products…</p>
+}
+else if (errorMessage is not null)
+{
+    <div class="alert alert-danger" role="alert">@errorMessage</div>
+    <button class="btn btn-primary" @onclick="LoadProductsAsync">Try again</button>
+}
+else if (products.Length == 0)
+{
+    <p>No products are available.</p>
+}
+else
+{
+    <ul>
+        @foreach (var product in products)
+        {
+            <li>@product.Name — @product.Price.ToString("C") (Stock: @product.Stock) | Category: @(product.Category?.Name ?? "Uncategorized")</li>
+        }
+    </ul>
+}
+
+@code {
+    private Product[] products = [];
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    protected override Task OnInitializedAsync() => LoadProductsAsync();
+
+    private async Task LoadProductsAsync()
+    {
+        isLoading = true;
+        errorMessage = null;
+
+        try
+        {
+            products = await ProductsApi.GetProductsAsync();
+        }
+        catch (HttpRequestException)
+        {
+            errorMessage = "Could not load products. Check that the API is running and try again.";
+        }
+        catch (TaskCanceledException)
+        {
+            errorMessage = "The request timed out. Please try again.";
+        }
+        catch (InvalidDataException)
+        {
+            errorMessage = "The API returned data in an unexpected format.";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}
