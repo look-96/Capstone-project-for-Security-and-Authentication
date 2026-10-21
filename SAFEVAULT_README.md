@@ -66,7 +66,7 @@ This is a learning sample, not a production-ready identity system. Replace the i
 
 Each source file has a focused role: validators validate, SQL helpers define/bind statements, repositories perform persistence operations, authentication services verify credentials, endpoint files map HTTP routes, and tests verify behavior. This makes the security boundaries easier to review and individual pieces easier to replace.
 
-##
+## Summarizing Copilot assistance
 
 I used Copilot for input validation, database access, authentication, and output handling. The review checked for SQL statements built by concatenating user input and for untrusted content rendered as raw HTML. SafeVault already used parameterized SQL, and its text-encoding helper encoded potentially unsafe markup, so I kept those protections and expanded the security tests with SQL injection and XSS payloads. I also reviewed the authentication and role checks.
 The Core, Web, and Tests projects compiled successfully.
