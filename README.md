@@ -4,6 +4,7 @@ InventoryHub is a small full-stack inventory sample built from two .NET projects
 
 - **ClientApp** is a Blazor WebAssembly app. It loads product data and renders the product list.
 - **ServerApp** is a .NET Minimal API. It returns product data as JSON and caches the catalog in memory.
+- The client also includes a registration form at `/register` to demonstrate browser-side HTML5 validation.
 
 The projects keep one responsibility per file: startup and dependency registration are in `Program.cs`; endpoint mapping, catalog access, API access, UI rendering, and each data model have separate files.
 
@@ -107,6 +108,10 @@ Keep the trailing slash so the relative request path `api/productlist` resolves 
 5. The component renders each product and its category. During a request it displays a loading state; on failure it shows a message and a retry button.
 
 `HttpClient` and `ProductsApiService` are registered in `ClientApp/Program.cs`. The component handles HTTP failures, timeouts, and malformed or empty JSON without leaving the page in a loading state.
+
+## Registration form validation demo
+
+Open `/register` in the Blazor client. The form uses native HTML validation attributes: `required`, `type="email"`, `minlength`, and `pattern`. The username accepts 4–12 alphanumeric characters, and the phone field requires exactly 10 digits. A small delegated input handler in `ClientApp/wwwroot/js/registration-validation.js` uses `setCustomValidity` to require the confirmation field to match the password. The submit message only confirms that validation passed; this demo does not create or persist user accounts.
 
 ## API contract
 

@@ -1,0 +1,75 @@
+@page "/register"
+
+<PageTitle>Register</PageTitle>
+
+<h1>Create an account</h1>
+<p>Complete the fields below. Your browser checks each value before submission.</p>
+
+<form data-registration-form @onsubmit="HandleSubmit" @onsubmit:preventDefault="true"
+      @oninput="ClearSubmissionMessage">
+    <div class="mb-3">
+        <label class="form-label" for="username">Username</label>
+        <input class="form-control" type="text" id="username" name="username"
+               required minlength="4" maxlength="12" pattern="[a-zA-Z0-9]{4,12}"
+               title="Use 4 to 12 letters or numbers only."
+               autocomplete="username" />
+        <div class="form-text">4–12 letters or numbers.</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="name">Name</label>
+        <input class="form-control" type="text" id="name" name="name"
+               required maxlength="100" autocomplete="name" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" type="email" id="email" name="email"
+               required maxlength="254" autocomplete="email" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-control" type="password" id="password" name="password"
+               required minlength="6" autocomplete="new-password" />
+        <div class="form-text">At least 6 characters.</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="confirmPassword">Confirm password</label>
+        <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
+               required pattern=".{6,}" title="Enter the same password as above."
+               autocomplete="new-password" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="phone">Phone number</label>
+        <input class="form-control" type="tel" id="phone" name="phone"
+               required pattern="[0-9]{10}" inputmode="numeric"
+               title="Enter exactly 10 digits." autocomplete="tel" />
+        <div class="form-text">Enter exactly 10 digits.</div>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Register</button>
+</form>
+
+@if (submissionMessage is not null)
+{
+    <p class="alert alert-success mt-3" role="status">@submissionMessage</p>
+}
+
+<p class="form-text mt-3">This page demonstrates form validation; it does not create or store an account.</p>
+
+@code {
+    private string? submissionMessage;
+
+    private void HandleSubmit()
+    {
+        submissionMessage = "All fields passed browser validation. Account registration is not connected in this demo.";
+    }
+
+    private void ClearSubmissionMessage(ChangeEventArgs _)
+    {
+        submissionMessage = null;
+    }
+}
