@@ -15,6 +15,3 @@ No insecure SQL concatenation or raw HTML rendering path was present in the revi
 - Direct security smoke checks passed for the SQL injection payloads, XSS payloads, and hostile input validation. Authentication smoke checks from Activity 2 also passed.
 - The NUnit test host stalled before executing tests in this environment. HTTP route checks were blocked by local socket restrictions and the absence of an HTTPS development certificate. The NUnit cases are included and compile, but should be run with `dotnet test SafeVault.Tests/SafeVault.Tests.csproj` in a normal .NET development environment.
 
-## Copilot disclosure
-
-Microsoft Copilot was not used in this Codex session. OpenAI Codex assisted with reviewing the SafeVault code, strengthening attack-focused tests, and documenting the findings. This disclosure is included so the submission does not claim Copilot use that did not occur.
