@@ -43,6 +43,7 @@ This is the first activity's secure-coding foundation. The repository requires a
 
 The second activity's runnable authentication and role-authorization API is documented in [SafeVault.Web/README.md](../SafeVault.Web/README.md).
 
-Debugging process summary
+## Debugging process summary
+
 I used Copilot for input validation, database access, authentication, and output handling. The review checked for SQL statements built by concatenating user input and for untrusted content rendered as raw HTML. SafeVault already used parameterized SQL, and its text-encoding helper encoded potentially unsafe markup, so I kept those protections and expanded the security tests with SQL injection and XSS payloads. I also reviewed the authentication and role checks.
 The Core, Web, and Tests projects compiled successfully.
